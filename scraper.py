@@ -54,7 +54,6 @@ class Scraper:
                     "job_url": job_url,
                 }
             )
-        print("results", results)
         return results
 
     def get_web3career_jobs(self, soup):

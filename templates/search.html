@@ -8,36 +8,96 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     />
+    <style>
+      body {
+        min-height: 100vh;
+      }
+
+      main.container {
+        max-width: 1040px;
+        padding-block: 3rem;
+      }
+
+      .page-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .summary {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .site-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .site-header h3 {
+        margin-bottom: 0;
+      }
+
+      article {
+        margin-bottom: 1.5rem;
+      }
+
+      td:last-child,
+      th:last-child {
+        text-align: right;
+      }
+    </style>
   </head>
   <body>
     <main class="container">
-      <h1>검색결과</h1>
-      <h2>검색어: {{ keyword }}</h2>
-      {% for site in site_list %}
-      <h3>{{ site }}</h3>
+      <header class="page-header">
+        <h1>검색결과</h1>
+        <p>검색어: <strong>{{ keyword }}</strong></p>
+      </header>
 
-      <figure>
-        <table class="striped">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Company</th>
-              <th>URL</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for result in results %}
-            <tr>
-              <td>{{ result.title }}</td>
-              <td>{{ result.company_name }}</td>
-              <td><a href="{{ result.url }}" target="_blank"> Apply! </a></td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </figure>
+      <article class="summary">
+        <h2>총 {{ total_count }}개의 채용공고</h2>
+      </article>
 
+      {% for site in site_results %}
+      <article>
+        <header class="site-header">
+          <h3>{{ site.name }}</h3>
+          <small>{{ site.count }}개</small>
+        </header>
+
+        {% if site.results %}
+        <figure>
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Company</th>
+                <th>URL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for result in site.results %}
+              <tr>
+                <td>{{ result.title }}</td>
+                <td>{{ result.company_name }}</td>
+                <td>
+                  <a href="{{ result.job_url }}" target="_blank">Apply!</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </figure>
+        {% else %}
+        <p>이 사이트에서는 검색 결과가 없습니다.</p>
+        {% endif %}
+      </article>
       {% endfor %}
+
+      <a href="/" role="button" class="secondary">다시 검색</a>
     </main>
   </body>
 </html>
