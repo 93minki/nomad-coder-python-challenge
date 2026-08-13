@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Scraper</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Job Scraper</h1>
+      <h4>Python, JavaScript, Java 만 지원합니다.</h4>
+
+      <form action="/search">
+        <fieldset>
+          <legend>Recruting Site</legend>
+          <input
+            type="checkbox"
+            id="berlinstartupjobs"
+            name="site"
+            value="berlinstartupjobs"
+            checked
+          />
+          <label for="berlinstartupjobs">Berlin Startup Jobs</label>
+          <input
+            type="checkbox"
+            id="web3career"
+            name="site"
+            value="web3career"
+          />
+          <label for="web3career">Web3 Career</label>
+          <input
+            type="checkbox"
+            id="weworkremotely"
+            name="site"
+            value="weworkremotely"
+          />
+          <label for="weworkremotely">WeWorkRemotely</label>
+        </fieldset>
+        <input
+          type="text"
+          name="keyword"
+          placeholder="검색어를 입력하세요"
+          required
+        />
+        <button type="submit">검색</button>
+      </form>
+    </main>
+  </body>
+</html>
