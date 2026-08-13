@@ -48,6 +48,26 @@
         />
         <button type="submit">검색</button>
       </form>
+
+      <script>
+        const form = document.querySelector("#search-form");
+        const keywords = new Set(["python", "javascript", "java"]);
+      
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+      
+          const keyword = new FormData(form)
+            .get("keyword")
+            .trim()
+            .toLowerCase();
+      
+          if (keywords.has(keyword)) {
+            window.location.href = `search/${keyword}/`;
+          } else {
+            window.location.href = "not-found/";
+          }
+        });
+      </script>
     </main>
   </body>
 </html>
