@@ -9,16 +9,16 @@ class SearchRoutesTest(unittest.TestCase):
         self.client = app.test_client()
 
     def test_query_search_redirects_to_keyword_page(self):
-        response = self.client.get("/search?keyword=java")
+        response = self.client.get("/search/?keyword=java")
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.headers["Location"], "/search/java")
+        self.assertEqual(response.headers["Location"], "/search/java/")
 
     def test_query_search_redirects_unknown_keyword_to_not_found(self):
-        response = self.client.get("/search?keyword=ruby")
+        response = self.client.get("/search/?keyword=ruby")
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.headers["Location"], "/not-found")
+        self.assertEqual(response.headers["Location"], "/not-found/")
 
     @patch("main.Scraper")
     def test_keyword_page_groups_results_by_site(self, scraper_class):
@@ -40,7 +40,7 @@ class SearchRoutesTest(unittest.TestCase):
             [],
         ]
 
-        response = self.client.get("/search/java")
+        response = self.client.get("/search/java/")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(scraper_class.call_count, 3)
